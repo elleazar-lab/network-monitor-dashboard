@@ -1,4 +1,4 @@
-# app.py - Network Monitor Web Dashboard
+# app.py - Network Monitor Web Dashboard (Windows-compatible, no emojis)
 from flask import Flask, render_template, jsonify
 import socket
 import subprocess
@@ -44,7 +44,6 @@ def get_network_info():
 def ping_host(ip):
     """Ping a host to check if it's alive"""
     try:
-        # Windows uses -n, Linux/Mac use -c
         import platform
         param = '-n' if platform.system().lower() == 'windows' else '-c'
         response = subprocess.run(
@@ -91,72 +90,24 @@ def get_manufacturer(mac):
     # Common OUI database (first 6 characters of MAC)
     oui = mac.replace(':', '').upper()[:6]
     
-    # Sample OUI database (add more as needed)
+    # Sample OUI database
     oui_db = {
-        '000000': 'Xerox',
-        '0001E6': 'Apple',
-        '0003E9': 'Intel',
-        '000A95': 'Samsung',
-        '0016CB': 'Apple',
-        '0021CC': 'Apple',
-        '0050F2': 'Microsoft',
-        '0090C9': 'Belkin',
-        '00A0C9': 'Intel',
-        '08002B': 'DEC',
-        '0C2AE8': 'Raspberry Pi',
-        '10FEED': 'Ubiquiti',
-        '14DD99': 'Sony',
-        '1C5A6B': 'Amazon',
-        '24F5AA': 'Google',
-        '2C303A': 'Nest',
-        '30A9DE': 'HP',
-        '34F39A': 'TP-Link',
-        '3C286D': 'Ubiquiti',
-        '40B87C': 'TCL',
-        '44D9E7': 'Google',
-        '4C3275': 'D-Link',
-        '50C7BF': 'Arris',
-        '54E075': 'Realtek',
-        '5C93A2': 'Huawei',
-        '60AB67': 'Belkin',
-        '64BC58': 'OnePlus',
-        '6C72E7': 'Philips',
-        '70B3D5': 'Acer',
-        '789ABB': 'ASUS',
-        '7C05EF': 'LG',
-        '7C531A': 'MikroTik',
-        '80A589': 'Intel',
-        '840B2E': 'TP-Link',
-        '888686': 'Intel',
-        '8C45DA': 'Zyxel',
-        '8CB64B': 'AsusTek',
-        '901D27': 'Intel',
-        '94DE80': 'Espressif',
-        '98927C': 'Amazon',
-        '9C8E99': 'Xiaomi',
-        'A8D0E5': 'Acer',
-        'AC5F3E': 'Cisco',
-        'B09575': 'Vizio',
-        'B45A42': 'Roku',
-        'B847C6': 'Atheros',
-        'BCAEC5': 'Raspberry Pi',
-        'C025E9': 'TP-Link',
-        'C45BBE': 'Foxconn',
-        'CC2D21': 'Samsung',
-        'CC3322': 'Netgear',
-        'D05764': 'Intel',
-        'D41A3F': 'LG',
-        'D85D4C': 'Google',
-        'DC44B2': 'Intel',
-        'E03593': 'ASRock',
-        'E458E8': 'Nokia',
-        'E8ABFA': 'MikroTik',
-        'EC2274': 'Hitron',
-        'F03D64': 'Hitachi',
-        'F06E9F': 'Netgear',
-        'F452EA': 'Xfinity',
-        'F80F41': 'Intel',
-        'FC1C2D': 'Dell',
+        '000000': 'Xerox', '0001E6': 'Apple', '0003E9': 'Intel', '000A95': 'Samsung',
+        '0016CB': 'Apple', '0021CC': 'Apple', '0050F2': 'Microsoft', '0090C9': 'Belkin',
+        '00A0C9': 'Intel', '08002B': 'DEC', '0C2AE8': 'Raspberry Pi', '10FEED': 'Ubiquiti',
+        '14DD99': 'Sony', '1C5A6B': 'Amazon', '24F5AA': 'Google', '2C303A': 'Nest',
+        '30A9DE': 'HP', '34F39A': 'TP-Link', '3C286D': 'Ubiquiti', '40B87C': 'TCL',
+        '44D9E7': 'Google', '4C3275': 'D-Link', '50C7BF': 'Arris', '54E075': 'Realtek',
+        '5C93A2': 'Huawei', '60AB67': 'Belkin', '64BC58': 'OnePlus', '6C72E7': 'Philips',
+        '70B3D5': 'Acer', '789ABB': 'ASUS', '7C05EF': 'LG', '7C531A': 'MikroTik',
+        '80A589': 'Intel', '840B2E': 'TP-Link', '888686': 'Intel', '8C45DA': 'Zyxel',
+        '8CB64B': 'AsusTek', '901D27': 'Intel', '94DE80': 'Espressif', '98927C': 'Amazon',
+        '9C8E99': 'Xiaomi', 'A8D0E5': 'Acer', 'AC5F3E': 'Cisco', 'B09575': 'Vizio',
+        'B45A42': 'Roku', 'B847C6': 'Atheros', 'BCAEC5': 'Raspberry Pi', 'C025E9': 'TP-Link',
+        'C45BBE': 'Foxconn', 'CC2D21': 'Samsung', 'CC3322': 'Netgear', 'D05764': 'Intel',
+        'D41A3F': 'LG', 'D85D4C': 'Google', 'DC44B2': 'Intel', 'E03593': 'ASRock',
+        'E458E8': 'Nokia', 'E8ABFA': 'MikroTik', 'EC2274': 'Hitron', 'F03D64': 'Hitachi',
+        'F06E9F': 'Netgear', 'F452EA': 'Xfinity', 'F80F41': 'Intel', 'FC1C2D': 'Dell',
         'FCA552': 'Technicolor',
     }
     
@@ -232,7 +183,8 @@ def api_status():
     return jsonify(scan_results)
 
 if __name__ == '__main__':
-    print("🌐 Network Monitor Dashboard")
+    print("=" * 40)
+    print("Network Monitor Dashboard")
     print("=" * 40)
     print("Starting web server...")
     print("Open http://127.0.0.1:5000 in your browser")
